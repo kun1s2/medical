@@ -3,23 +3,42 @@ package com.medical.controller.doctor;
 import com.alibaba.fastjson.JSONObject;
 import com.medical.model.CommonResponse;
 import com.medical.properties.JwtProperties;
+import com.medical.service.MedicalRecordManagementService;
 import com.medical.service.UserService;
 import com.medical.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController("doctorUserController")
 @RequestMapping("/doctor/user")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController
+{
     private final UserService userService;
     private final JwtProperties jwtProperties;
 
+    private final MedicalRecordManagementService medicalRecordManagementService;
+
+    @GetMapping("/test")
+    public void test()
+    {
+        try
+        {
+            System.out.println(medicalRecordManagementService.getReservationAllInfo());
+        } catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @PostMapping("/login")
-    public CommonResponse login(@RequestBody JSONObject loginParams) {
-        Map<String,Object> response = userService.login(loginParams);
+    public CommonResponse login(@RequestBody JSONObject loginParams)
+    {
+        Map<String, Object> response = userService.login(loginParams);
         Map<String, Object> claims = new HashMap<>();
         claims.put("account", response.get("account"));
         claims.put("accountAddress", response.get("accountAddress"));
@@ -35,14 +54,16 @@ public class UserController {
 
     //注册
     @PostMapping("/register")
-    public CommonResponse register(@RequestBody JSONObject registerParams) {
+    public CommonResponse register(@RequestBody JSONObject registerParams)
+    {
         userService.register(registerParams);
         return CommonResponse.ok(null);
     }
 
     @GetMapping("/userinfo")
-    public CommonResponse getUserInfo() {
-        Map<String,Object> response = userService.getUser();
+    public CommonResponse getUserInfo()
+    {
+        Map<String, Object> response = userService.getUser();
         return CommonResponse.ok(response);
     }
 }

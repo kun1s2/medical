@@ -22,9 +22,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 system:
-  peers: 192.168.200.132:20200
+  peers: 192.168.153.132:20200
   groupId: 1
   certPath: conf,config,src/main/resources/conf,src/main/resources/config
-  hexPrivateKey:
+  hexPrivateKey: aa17533ec096f0fa56bb3140e66b75c705f295137279317e55c6dd842277e145
   contract:
-    medicalRecordManagementAddress: 0xb4dc66f6b001424d0660c5524f1749b3db509b18
+    medicalRecordManagementAddress: 0x748486f07be8413fe3b2595c8c467390897f14b1
